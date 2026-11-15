@@ -5,7 +5,11 @@ __pycache__/
 media/
 staticfiles/
 database_backups/
-
 Product_Image_Analysis/
+# Local database backups
+gatexkart_backup.sql
+*.sql
+
+# Generated image review folders
 Duplicate_Images/
 Needs_Manual_Review/

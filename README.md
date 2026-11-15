@@ -21,6 +21,8 @@ Django and MySQL storefront for sourcing Indian food products for international 
 
 The catalogue migration creates the requested product categories and a small set of editable example products only when matching records do not already exist. Product, category, banner, quote and contact content is stored in MySQL. Uploaded product and category images use Django media storage.
 
+Remote MySQL connections use PyMySQL with TLS certificate and host verification. TiDB Cloud Serverless uses the bundled ISRG Root X1 certificate; set `DB_SSL_CA` to another CA bundle path (absolute or relative to the project root) if your provider requires a different CA. Local connections to `localhost`, `127.0.0.1` or `::1` continue using `mysqlclient` without TLS.
+
 ## Admin roles
 
 - Super Admin: Django superuser with full permissions.
