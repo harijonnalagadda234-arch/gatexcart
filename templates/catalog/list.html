@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Food & Foodservice Products | GateXKart{% endblock %}
+{% block content %}
+<main class="container catalogue-layout">
+  {% include "partials/marketplace_sidebar.html" %}
+  <section class="catalogue-content">
+    <div class="page-intro"><div class="breadcrumbs"><a href="{% url 'home' %}">Home</a><span>/</span><span>Products</span></div><span class="eyebrow">GATEXKART PRODUCT CATALOGUE</span><h1>Food &amp; foodservice products for <em>global business</em></h1><p>Explore products for wholesale, retail, foodservice and packaging needs.</p></div>
+    <form class="catalogue-filters" action="{% url 'products' %}" method="get">
+      <label class="sr-only" for="catalogue-search">Search products</label><input id="catalogue-search" type="search" name="q" value="{{ query }}" placeholder="Search products or categories">
+      <label class="sr-only" for="catalogue-category">Filter by category</label><select id="catalogue-category" name="category"><option value="">All categories</option>{% for category in categories %}<option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>{{ category.name }}</option>{% endfor %}</select>
+      <button class="button button-navy" type="submit">Search</button>
+    </form>
+    {% if query or selected_category %}<div class="results-summary"><span>Showing matching products{% if query %} for <strong>“{{ query }}”</strong>{% endif %}</span><a href="{% url 'products' %}">Clear filters</a></div>{% endif %}
+    <div class="product-grid catalogue-products">
+      {% for product in products %}
+      <article class="product-card">
+        <a class="product-image" href="{% url 'product' product.slug %}">
+          {% include "catalog/partials/product_image.html" with image=product.image alt=product.name %}
+        </a>
+        <div class="product-info">
+          <span class="product-category">{{ product.category.name }}</span>
+          <h2><a href="{% url 'product' product.slug %}">{{ product.name }}</a></h2>
+          {% if product.short_description %}<p class="product-short-description">{{ product.short_description }}</p>{% endif %}
+          {% if product.origin %}<p class="product-origin">Origin <strong>{{ product.origin }}</strong></p>{% endif %}
+          {% if product.pack_sizes or product.moq %}<div class="product-specs">{% if product.pack_sizes %}<span>Pack sizes <b>{{ product.pack_sizes }}</b></span>{% endif %}{% if product.moq %}<span>MOQ <b>{{ product.moq }}</b></span>{% endif %}</div>{% endif %}
+          <div class="product-actions"><a class="button button-gold button-compact" href="{% url 'quote' %}?product={{ product.name|urlencode }}">Request a Quote</a><a class="whatsapp-link" href="https://wa.me/919876543210?text={{ product.name|urlencode }}%20enquiry" target="_blank" rel="noopener noreferrer" aria-label="Enquire about {{ product.name }} on WhatsApp">WA</a></div>
+        </div>
+      </article>
+      {% empty %}<div class="empty-catalog"><strong>No products match those filters.</strong><p>Try another search or contact us to source a product for your business.</p><a class="button button-navy" href="{% url 'quote' %}">Send your requirement</a></div>{% endfor %}
+    </div>
+    {% if page_obj.has_other_pages %}
+    <nav class="catalog-pagination" aria-label="Product pages">
+      {% if page_obj.has_previous %}<a href="?{% if pagination_query %}{{ pagination_query }}&amp;{% endif %}page={{ page_obj.previous_page_number }}">Previous</a>{% endif %}
+      <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}<a href="?{% if pagination_query %}{{ pagination_query }}&amp;{% endif %}page={{ page_obj.next_page_number }}">Next</a>{% endif %}
+    </nav>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}

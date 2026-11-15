@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Industries We Serve | GateXKart{% endblock %}
+{% block meta_description %}Explore how GateXKart supports wholesalers, retailers, supermarkets, restaurants, distributors, foodservice businesses and institutional buyers.{% endblock %}
+{% block content %}
+<main class="industries-page">
+  <section class="container industries-intro">
+    <div class="breadcrumbs"><a href="{% url 'home' %}">Home</a><span>/</span><span>Industries We Serve</span></div>
+    <span class="eyebrow"><i></i> BUSINESS SOURCING, BUILT AROUND YOU</span>
+    <h1>Industries <em>We Serve</em></h1>
+    <p class="industries-subtitle">Connecting Indian food products with businesses across global markets.</p>
+    <p class="industries-description">We support wholesalers, retailers, supermarkets, hotels, restaurants, distributors, food manufacturers and institutional buyers with reliable bulk sourcing solutions.</p>
+    <a class="button button-gold" href="{% url 'quote' %}">Discuss Your Requirements <span aria-hidden="true">→</span></a>
+  </section>
+
+  <section class="container industries-grid-section" aria-label="Industries supported by GateXKart">
+    <div class="industries-grid">
+      {% for industry in industries %}
+      <article class="industry-card">
+        <div class="industry-card-image">
+          <img src="{% static industry.image %}" alt="">
+          <span class="industry-card-number">0{{ forloop.counter }}</span>
+        </div>
+        <div class="industry-card-copy">
+          <h2>{{ industry.title }}</h2>
+          <p>{{ industry.description }}</p>
+          <div class="industry-card-actions">
+            <a href="{% url 'products' %}">Explore Products <span aria-hidden="true">→</span></a>
+            <a href="{% url 'quote' %}?industry={{ industry.title|urlencode }}">Request a Quote</a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="container industries-cta">
+    <div>
+      <span class="eyebrow eyebrow-light"><i></i> GATEXKART B2B SOURCING</span>
+      <h2>Tell us what your business needs.</h2>
+      <p>Share your product, volume and destination requirements. Our team can help you explore suitable sourcing options.</p>
+    </div>
+    <a class="button button-gold" href="{% url 'quote' %}">Request a Quote <span aria-hidden="true">→</span></a>
+  </section>
+</main>
+{% endblock %}

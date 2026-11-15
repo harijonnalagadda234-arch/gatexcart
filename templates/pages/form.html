@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} | GateXKart{% endblock %}
+{% block content %}
+<main class="container page-shell">
+  <div class="breadcrumbs"><a href="{% url 'home' %}">Home</a><span>/</span><span>{{ title }}</span></div>
+  <span class="eyebrow">B2B SOURCING ENQUIRY</span><h1>{{ title }}</h1>
+  <div class="page-columns">
+    <div class="contact-card"><h2>Tell us what your business needs</h2><p>Share your product, quantity and destination details. Our team will review your request and follow up with suitable sourcing information.</p><p>For a quick conversation, call <a href="tel:+919876543210">{{ site_phone }}</a> or email <a href="mailto:{{ site_email }}">{{ site_email }}</a>.</p><p>There is no account required to request a quotation.</p></div>
+    <form method="post" class="form-card" novalidate>{% csrf_token %}{% if form.non_field_errors %}<div class="form-error-summary">{{ form.non_field_errors }}</div>{% endif %}{{ form.as_p }}<button class="button button-gold" type="submit">Submit request <span aria-hidden="true">→</span></button></form>
+  </div>
+</main>
+{% endblock %}

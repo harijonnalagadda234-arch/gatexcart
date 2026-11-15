@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} | GateXKart{% endblock %}
+{% block content %}
+<main class="container page-shell">
+  <div class="breadcrumbs"><a href="{% url 'home' %}">Home</a><span>/</span><span>{{ title }}</span></div>
+  <span class="eyebrow">GATEXKART B2B MARKETPLACE</span><h1>{{ title }}</h1><p>{{ body }}</p>
+  {% if title == "Track an Order" %}<p>Include your order or enquiry reference so our team can help you faster.</p><a class="button button-navy" href="{% url 'contact' %}">Contact the team</a>{% else %}<a class="button button-gold" href="{% url 'quote' %}">Discuss your requirements <span aria-hidden="true">→</span></a>{% endif %}
+</main>
+{% endblock %}

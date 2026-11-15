@@ -1,0 +1,36 @@
+{% load static %}
+<aside class="marketplace-sidebar">
+  <button class="sidebar-mobile-toggle" type="button" aria-expanded="false" aria-controls="sidebar-content">
+    <span>Browse product categories</span><span class="sidebar-toggle-icon" aria-hidden="true">⌄</span>
+  </button>
+  <div class="sidebar-content" id="sidebar-content">
+    <div class="sidebar-card">
+      <div class="sidebar-title"><span aria-hidden="true">▦</span> Product categories</div>
+      <a class="sidebar-category sidebar-all" href="{% url 'products' %}"><span>All categories</span><span class="sidebar-count" aria-hidden="true">→</span></a>
+      {% for category in categories %}
+      <a class="sidebar-category" href="{% url 'products' %}?category={{ category.slug }}" title="{{ category.name }}"><span>{{ category.name }}</span><span class="sidebar-count" aria-hidden="true">→</span></a>
+      {% endfor %}
+    </div>
+    <div class="sidebar-card sidebar-industries">
+      <div class="sidebar-title sidebar-title-plain">Industries we serve</div>
+      <a href="{% url 'industries' %}"><span class="industry-label">Wholesalers</span><span aria-hidden="true">↗</span></a>
+      <a href="{% url 'industries' %}"><span class="industry-label">Retailers</span><span aria-hidden="true">↗</span></a>
+      <a href="{% url 'industries' %}"><span class="industry-label">Supermarkets</span><span aria-hidden="true">↗</span></a>
+      <a href="{% url 'industries' %}" title="Hotels &amp; Restaurants"><span class="industry-label">Hotels &amp; Restaurants</span><span aria-hidden="true">↗</span></a>
+      <a href="{% url 'industries' %}"><span class="industry-label">Distributors</span><span aria-hidden="true">↗</span></a>
+      <a href="{% url 'industries' %}" title="Foodservice Businesses"><span class="industry-label">Foodservice Businesses</span><span aria-hidden="true">↗</span></a>
+      <a href="{% url 'industries' %}" title="Food Processing Units"><span class="industry-label">Food Processing Units</span><span aria-hidden="true">↗</span></a>
+      <a href="{% url 'industries' %}"><span class="industry-label">Institutions</span><span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="sidebar-promo">
+      <span class="promo-symbol">01</span><strong>Get bulk pricing</strong><p>Share your volume and destination.</p><a href="{% url 'quote' %}">Start an enquiry <span>→</span></a>
+    </div>
+    <div class="sidebar-promo sidebar-promo-partner">
+      <span class="promo-symbol">02</span><strong>Become a partner</strong><p>Grow your network with Indian products.</p><a href="{% url 'contact' %}">Talk to our team <span>→</span></a>
+    </div>
+    <div class="sidebar-promo sidebar-promo-export">
+      <span class="promo-symbol">03</span><strong>Export enquiry</strong><p>Share your destination and sourcing needs.</p><a href="{% url 'quote' %}">Send enquiry <span>→</span></a>
+    </div>
+    <div class="sidebar-export"><img src="{% static 'images/basmati-rice.jpg' %}" alt=""><div><span>GATEXKART EXPORTS</span><strong>Indian products.<br>Global possibilities.</strong><a href="{% url 'quote' %}">Get started <b>→</b></a></div></div>
+  </div>
+</aside>

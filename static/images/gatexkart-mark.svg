@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">GateXKart mark</title>
+  <defs>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f8c857"/>
+      <stop offset="1" stop-color="#df8e24"/>
+    </linearGradient>
+  </defs>
+  <path fill="#102b4e" d="M32 2 58 17v30L32 62 6 47V17z"/>
+  <path fill="none" stroke="url(#gold)" stroke-width="2" d="M32 8 52 20v24L32 56 12 44V20z"/>
+  <path fill="url(#gold)" d="M38.8 19.5h8.1L37.5 31.7l10.2 13h-8.3l-6.1-8.3-6.5 6.7v1.6h-7.1V19.5h7.1v14.4z"/>
+  <path fill="#fff" d="M20 31.5h11.3v11.2A16.7 16.7 0 1 1 31 18.9l-4.1 5.2a10 10 0 1 0-1.6 16.7v-4H20z"/>
+</svg>

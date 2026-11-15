@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About Us | GateXKart{% endblock %}
+{% block meta_description %}Learn how GateXKart connects Indian food and agricultural products with B2B buyers in Kuwait and international markets.{% endblock %}
+{% block content %}
+<main class="about-page">
+  <section class="container about-hero">
+    <div class="about-hero-copy">
+      <div class="breadcrumbs"><a href="{% url 'home' %}">Home</a><span>/</span><span>About Us</span></div>
+      <span class="eyebrow"><i></i> INDIAN PRODUCTS. GLOBAL MARKETS.</span>
+      <h1>About <em>Us</em></h1>
+      <p class="about-hero-subtitle">Your trusted partner in B2B wholesale supply.</p>
+      <p class="about-hero-description">We connect international food businesses with Indian food and agricultural products through reliable sourcing, clear communication and business-focused support.</p>
+      <a class="button button-gold" href="{% url 'products' %}">Explore Products <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="about-hero-visual">
+      <img src="{% static 'images/export-port.jpg' %}" alt="Cargo ship and port logistics supporting international food trade">
+      <div class="about-hero-badge"><span>TRADE CONNECTIONS</span><strong>From India<br>to Kuwait and beyond</strong></div>
+      <div class="about-hero-caption"><span aria-hidden="true">↗</span> Built around your business requirements</div>
+    </div>
+  </section>
+
+  <div class="about-value-strip">
+    <div class="container">
+      <span><b aria-hidden="true">01</b> Reliable sourcing</span>
+      <span><b aria-hidden="true">02</b> Bulk B2B supply</span>
+      <span><b aria-hidden="true">03</b> International trade support</span>
+    </div>
+  </div>
+
+  <section class="container about-bridge">
+    <div class="about-bridge-visual">
+      <img class="about-bridge-main" src="{% static 'images/spices.jpg' %}" alt="A selection of Indian spices ready for wholesale sourcing">
+      <img class="about-bridge-inset" src="{% static 'images/logistics.jpg' %}" alt="Organized warehouse logistics for bulk food products">
+      <div class="about-bridge-tag"><span>INDIA</span><b aria-hidden="true">→</b><span>KUWAIT</span></div>
+    </div>
+    <div class="about-copy">
+      <span class="eyebrow"><i></i> WHO WE ARE</span>
+      <h2>Bridging India <em>&amp; Kuwait</em></h2>
+      <p>GateXKart is a premier B2B platform specializing in the bulk supply of Indian food and agricultural products to the Kuwait market. We act as a reliable bridge between authentic Indian farmers, manufacturers, and Middle Eastern wholesalers, retailers, and restaurants.</p>
+      <p>Our approach is centered on understanding buyer requirements, identifying suitable sourcing options and keeping communication clear through each enquiry.</p>
+      <a class="text-link" href="{% url 'contact' %}">Talk to our team <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="about-purpose">
+    <div class="container">
+      <div class="about-section-heading">
+        <span class="eyebrow"><i></i> WHAT GUIDES US</span>
+        <h2>Purpose built for better trade</h2>
+      </div>
+      <div class="about-purpose-grid">
+        <article class="about-purpose-card">
+          <span class="about-purpose-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none"><path d="M8 35V18l16-9 16 9v17M15 35V24h18v11M5 39h38" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="m18 18 4 4 8-8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="about-card-label">OUR MISSION</span>
+          <h3>Our Mission</h3>
+          <p>To supply premium quality products globally with seamless B2B transactions.</p>
+        </article>
+        <article class="about-purpose-card about-purpose-card-vision">
+          <span class="about-purpose-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none"><path d="M4.5 24s7-12 19.5-12 19.5 12 19.5 12-7 12-19.5 12S4.5 24 4.5 24Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><circle cx="24" cy="24" r="6" stroke="currentColor" stroke-width="2.4"/><path d="m21.5 24 1.7 1.7 3.4-3.8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="about-card-label">OUR VISION</span>
+          <h3>Our Vision</h3>
+          <p>Becoming the most reliable sourcing partner for bulk buyers worldwide.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="container about-why">
+    <div class="about-section-heading">
+      <span class="eyebrow"><i></i> THE GATEXKART APPROACH</span>
+      <h2>Why Choose GateXKart?</h2>
+      <p>Practical support for businesses sourcing Indian food and agricultural products.</p>
+    </div>
+    <div class="about-reasons-grid">
+      <article><span aria-hidden="true">01</span><h3>Reliable sourcing</h3><p>We work to identify suitable products and supply options for your stated needs.</p></article>
+      <article><span aria-hidden="true">02</span><h3>Premium quality products</h3><p>Product requirements and quality expectations stay at the center of each enquiry.</p></article>
+      <article><span aria-hidden="true">03</span><h3>Bulk B2B supply</h3><p>A sourcing platform focused on wholesale and business purchasing requirements.</p></article>
+      <article><span aria-hidden="true">04</span><h3>Business-focused support</h3><p>Clear communication to help buyers share the details that matter to their business.</p></article>
+      <article><span aria-hidden="true">05</span><h3>International trade assistance</h3><p>Support for buyers looking to source Indian products for international markets.</p></article>
+      <article><span aria-hidden="true">06</span><h3>Flexible buyer requirements</h3><p>Discuss destination, product and quantity requirements with our team.</p></article>
+    </div>
+  </section>
+
+  <section class="about-range">
+    <div class="container about-range-layout">
+      <div class="about-copy">
+        <span class="eyebrow"><i></i> OUR PRODUCT RANGE</span>
+        <h2>Indian products for a variety of business needs</h2>
+        <p>Explore a range of food and agricultural products for wholesale and international sourcing enquiries.</p>
+        <a class="text-link" href="{% url 'products' %}">Browse all products <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="about-range-list">
+        <a href="{% url 'products' %}?category=rice-grains"><img src="{% static 'images/grains.jpg' %}" alt=""><span>Rice &amp; Grains</span><b aria-hidden="true">↗</b></a>
+        <a href="{% url 'products' %}?category=pulses-dals"><img src="{% static 'images/pulses.jpg' %}" alt=""><span>Pulses &amp; Dals</span><b aria-hidden="true">↗</b></a>
+        <a href="{% url 'products' %}?category=spices-masalas"><img src="{% static 'images/spices.jpg' %}" alt=""><span>Spices &amp; Masalas</span><b aria-hidden="true">↗</b></a>
+        <a href="{% url 'products' %}?category=seeds-nuts"><span class="about-range-icon" aria-hidden="true">04</span><span>Seeds &amp; Nuts</span><b aria-hidden="true">↗</b></a>
+        <a href="{% url 'products' %}"><span class="about-range-icon" aria-hidden="true">05</span><span>Dry Fruits</span><b aria-hidden="true">↗</b></a>
+        <a href="{% url 'products' %}"><span class="about-range-icon" aria-hidden="true">06</span><span>Other Indian food &amp; agricultural products</span><b aria-hidden="true">↗</b></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container about-commitment">
+    <div class="about-commitment-visual"><img src="{% static 'images/logistics.jpg' %}" alt="Warehouse storage and logistics"></div>
+    <div class="about-copy">
+      <span class="eyebrow eyebrow-light"><i></i> OUR COMMITMENT</span>
+      <h2>Good business starts with trust.</h2>
+      <p>We value reliable sourcing, thoughtful quality checks, transparent communication and long-term business relationships. We aim to understand your needs and help connect them with suitable Indian products and supply options.</p>
+      <a class="button button-outline-light" href="{% url 'contact' %}">Contact Us <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="container about-cta">
+    <div><span class="eyebrow"><i></i> LET'S TALK BUSINESS</span><h2>Looking for Reliable Indian Food Products?</h2><p>Connect with GateXKart for bulk sourcing and international B2B supply requirements.</p></div>
+    <div class="about-cta-actions">
+      <a class="button button-navy" href="{% url 'products' %}">Explore Products</a>
+      <a class="button button-gold" href="{% url 'quote' %}">Request a Quote</a>
+      <a class="button button-light" href="{% url 'contact' %}">Contact Us</a>
+    </div>
+  </section>
+</main>
+{% endblock %}

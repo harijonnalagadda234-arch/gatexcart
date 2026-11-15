@@ -1,0 +1,95 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102b4e">
+  <meta name="description" content="{% block meta_description %}Source Indian food products for your business with GateXKart. Bulk supply, export support and quality-focused sourcing.{% endblock %}">
+  <title>{% block title %}GateXKart | Indian Products. Global Markets.{% endblock %}</title>
+  <link rel="icon" href="{% static 'images/gatexkart-mark.svg' %}" type="image/svg+xml">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <div class="topbar-contact">
+        <a href="tel:+919876543210"><span class="topbar-icon" aria-hidden="true">T</span> 24/7 B2B Support: {{ site_phone }}</a>
+        <a href="mailto:{{ site_email }}"><span class="topbar-icon" aria-hidden="true">@</span> {{ site_email }}</a>
+      </div>
+      <div class="topbar-meta"><span>India</span><i></i><span>UAE</span><i></i><span>Global Food Trade Partner</span></div>
+      <div class="topbar-location"><span aria-hidden="true">⌖</span> GateXKart Trading LLC, Dubai, UAE</div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container masthead">
+      <a class="brand" href="{% url 'home' %}" aria-label="GateXKart home">
+        <img src="{% static 'images/gatexkart-mark.svg' %}" alt="">
+        <span class="brand-word">Gate<span>X</span>Kart<small>Indian Products. Global Markets.</small></span>
+      </a>
+      <form class="site-search" action="{% url 'products' %}" method="get" role="search">
+        <label class="sr-only" for="header-search">Search products</label>
+        <input id="header-search" type="search" name="q" placeholder="Search rice, spices, pulses and more" value="{{ request.GET.q }}">
+        <label class="sr-only" for="header-category">Choose category</label>
+        <select id="header-category" name="category">
+          <option value="">All categories</option>
+          {% for category in nav_categories %}<option value="{{ category.slug }}" {% if request.GET.category == category.slug %}selected{% endif %}>{{ category.name }}</option>{% endfor %}
+        </select>
+        <button type="submit" aria-label="Search"><span aria-hidden="true">⌕</span></button>
+      </form>
+      <div class="header-actions">
+        <a class="support-link" href="{% url 'contact' %}"><span class="action-icon" aria-hidden="true">?</span><span>Buyer<small>Support</small></span></a>
+        <a class="quote-button" href="{% url 'quote' %}"><span aria-hidden="true">↗</span> Request a Quote</a>
+      </div>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span><span></span><span class="sr-only">Open menu</span></button>
+    </div>
+    <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+      <div class="container nav-inner">
+        <a class="nav-home{% if request.resolver_match.url_name == 'home' %} nav-active{% endif %}" href="{% url 'home' %}"{% if request.resolver_match.url_name == 'home' %} aria-current="page"{% endif %}>Home</a>
+        <a class="nav-about{% if request.resolver_match.url_name == 'about' %} nav-active{% endif %}" href="{% url 'about' %}"{% if request.resolver_match.url_name == 'about' %} aria-current="page"{% endif %}>About Us</a>
+        <div class="nav-dropdown"><a class="nav-products{% if request.resolver_match.url_name == 'products' or request.resolver_match.url_name == 'product' %} nav-active{% endif %}" href="{% url 'products' %}"{% if request.resolver_match.url_name == 'products' or request.resolver_match.url_name == 'product' %} aria-current="page"{% endif %}>Products <span aria-hidden="true">⌄</span></a>
+          <div class="dropdown-menu">{% for category in nav_categories %}<a href="{% url 'products' %}?category={{ category.slug }}">{{ category.name }}</a>{% endfor %}</div>
+        </div>
+        <a class="nav-industries{% if request.resolver_match.url_name == 'industries' %} nav-active{% endif %}" href="{% url 'industries' %}"{% if request.resolver_match.url_name == 'industries' %} aria-current="page"{% endif %}>Industries We Serve</a>
+        <a class="nav-how{% if request.resolver_match.url_name == 'how' %} nav-active{% endif %}" href="{% url 'how' %}"{% if request.resolver_match.url_name == 'how' %} aria-current="page"{% endif %}>How It Works</a>
+        <a class="nav-resources{% if request.resolver_match.url_name == 'resources' %} nav-active{% endif %}" href="{% url 'resources' %}"{% if request.resolver_match.url_name == 'resources' %} aria-current="page"{% endif %}>Resources</a>
+        <a class="nav-contact{% if request.resolver_match.url_name == 'contact' %} nav-active{% endif %}" href="{% url 'contact' %}"{% if request.resolver_match.url_name == 'contact' %} aria-current="page"{% endif %}>Contact Us</a>
+        <a class="nav-track-order" href="{% url 'track_order' %}">Track Order</a>
+        <a class="nav-whatsapp" href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">WhatsApp Us <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  {% if messages %}<div class="container message-stack" role="status">{% for message in messages %}<p class="site-message">{{ message }}</p>{% endfor %}</div>{% endif %}
+  {% block content %}{% endblock %}
+
+  <footer class="site-footer">
+    <div class="container footer-main">
+      <div class="footer-brand">
+        <a class="brand brand-light" href="{% url 'home' %}">
+          <img src="{% static 'images/gatexkart-mark.svg' %}" alt="">
+          <span class="brand-word">Gate<span>X</span>Kart<small>Indian Products. Global Markets.</small></span>
+        </a>
+        <p>Reliable sourcing of rice, pulses, spices, seeds and other Indian food products for wholesalers, retailers, distributors and food businesses.</p>
+        <div class="social-links" aria-label="Social links"><a href="https://www.linkedin.com/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">in</a><a href="https://www.facebook.com/" aria-label="Facebook" target="_blank" rel="noopener noreferrer">f</a><a href="https://www.instagram.com/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">ig</a><a href="https://wa.me/919876543210" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">wa</a></div>
+      </div>
+      <div class="footer-links"><h2>Quick Links</h2><a href="{% url 'home' %}">Home</a><a href="{% url 'about' %}">About Us</a><a href="{% url 'industries' %}">Industries We Serve</a><a href="{% url 'how' %}">How It Works</a><a href="{% url 'contact' %}">Contact Us</a></div>
+      <div class="footer-links"><h2>Our Products</h2>{% for category in nav_categories|slice:":6" %}<a href="{% url 'products' %}?category={{ category.slug }}">{{ category.name }}</a>{% endfor %}</div>
+      <div class="footer-links"><h2>Our Policies</h2><a href="{% url 'privacy' %}">Privacy Policy</a><a href="{% url 'terms' %}">Terms &amp; Conditions</a><a href="{% url 'returns' %}">Returns &amp; Refund Policy</a></div>
+      <div class="footer-contact"><h2>Contact Us</h2><a href="tel:{{ footer_phone }}">{{ footer_phone }}</a><a href="mailto:{{ footer_email }}">{{ footer_email }}</a><p>{{ footer_address }}</p></div>
+      <div class="footer-map"><img src="{% static 'images/global-network.svg' %}" alt="Illustration of global trade routes"></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 GateXKart. All Rights Reserved.</span>{% if site_designer %}<span>Website designed by {{ site_designer }}</span>{% endif %}</div>
+  </footer>
+
+  <div class="csrf-seed" aria-hidden="true">{% csrf_token %}</div>
+  <button id="chatOpen" class="chat-open" type="button" aria-label="Open GateXKart assistant" aria-controls="chat" aria-expanded="false"><span aria-hidden="true">G</span></button>
+  <aside id="chat" class="chat-panel" aria-label="GateXKart Assistant" aria-hidden="true">
+    <div class="chat-heading"><span class="chat-avatar">G</span><div><strong>GateXKart Assistant</strong><small>Product and bulk enquiry support</small></div><button id="chatClose" type="button" aria-label="Close assistant">×</button></div>
+    <div id="chatLog" class="chat-log" aria-live="polite"><p class="chat-bubble bot">Welcome to GateXKart. What products or sourcing information can I help you with?</p></div>
+    <form id="chatForm" class="chat-form"><label class="sr-only" for="chatText">Your message</label><input id="chatText" autocomplete="off" placeholder="Ask about a product..." required><button type="submit" aria-label="Send message">Send</button></form>
+  </aside>
+  <script src="{% static 'js/site.js' %}" defer></script>
+</body>
+</html>

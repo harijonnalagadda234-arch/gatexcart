@@ -1,0 +1,11 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+media/
+staticfiles/
+database_backups/
+
+Product_Image_Analysis/
+Duplicate_Images/
+Needs_Manual_Review/

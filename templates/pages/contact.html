@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Contact GateXKart | B2B Sourcing Support{% endblock %}
+{% block content %}
+<main class="container page-shell">
+  <div class="breadcrumbs"><a href="{% url 'home' %}">Home</a><span>/</span><span>Contact Us</span></div>
+  <span class="eyebrow">WE'RE HERE TO HELP</span><h1>Talk to our trade team</h1>
+  <div class="page-columns">
+    <div class="contact-card"><h2>GateXKart Trading LLC</h2><p>Tell us about your sourcing needs, destination market or partnership enquiry. Our team will be in touch.</p><p><strong>Phone</strong><br><a href="tel:+919876543210">{{ site_phone }}</a></p><p><strong>Email</strong><br><a href="mailto:{{ site_email }}">{{ site_email }}</a></p><p><strong>Location</strong><br>Dubai, UAE</p><p><strong>Business hours</strong><br>Mon - Sat: 9:00 AM - 6:00 PM</p></div>
+    <form method="post" class="form-card" novalidate>{% csrf_token %}{% if form.non_field_errors %}<div class="form-error-summary">{{ form.non_field_errors }}</div>{% endif %}{{ form.as_p }}<button class="button button-gold" type="submit">Send message <span aria-hidden="true">→</span></button></form>
+  </div>
+</main>
+{% endblock %}

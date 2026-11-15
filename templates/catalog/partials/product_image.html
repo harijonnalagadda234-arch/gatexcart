@@ -1,0 +1,6 @@
+{% load static %}
+{% if image %}
+<img src="{{ image.url }}" alt="{{ alt }}" data-fallback="{% static 'images/food-market.jpg' %}" onerror="this.onerror=null;this.src=this.dataset.fallback">
+{% else %}
+<img src="{% static 'images/food-market.jpg' %}" alt="{{ alt }}">
+{% endif %}

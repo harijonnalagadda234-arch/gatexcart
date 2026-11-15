@@ -1,0 +1,14 @@
+Bundled representative photography was downloaded from Unsplash's image CDN.
+Replace these example photos with approved product and business photography as needed.
+
+basmati-rice.jpg: https://images.unsplash.com/photo-1586201375761-83865001e31c
+spices.jpg: https://images.unsplash.com/photo-1596040033229-a9821ebd058d
+food-market.jpg: https://images.unsplash.com/photo-1547592180-85f173990554
+grains.jpg: https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b
+pulses.jpg: https://images.unsplash.com/photo-1515543237350-b3eea1ec8082
+indian-snacks.jpg: https://images.unsplash.com/photo-1601050690597-df0568f70950
+export-port.jpg: https://images.unsplash.com/photo-1578575437130-527eed3abbec
+logistics.jpg: https://images.unsplash.com/photo-1494412519320-aa613dfb7738
+restaurant.jpg: https://images.unsplash.com/photo-1414235077428-338989a2e8c0
+
+gatexkart-mark.svg and global-network.svg are original project illustrations.

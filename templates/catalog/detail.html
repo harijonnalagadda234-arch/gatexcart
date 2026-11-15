@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ product.name }} | GateXKart{% endblock %}
+{% block meta_description %}Request bulk sourcing information for {{ product.name }} from GateXKart.{% endblock %}
+{% block content %}
+<main class="container product-detail-page">
+  <div class="breadcrumbs"><a href="{% url 'home' %}">Home</a><span>/</span><a href="{% url 'products' %}">Products</a><span>/</span><a href="{% url 'products' %}?category={{ product.category.slug }}">{{ product.category.name }}</a><span>/</span><span>{{ product.name }}</span></div>
+  <section class="product-detail">
+    <div class="detail-gallery">
+      <div class="detail-visual">{% include "catalog/partials/product_image.html" with image=product.image alt=product.name %}</div>
+      {% if product.additional_images.all %}
+      <div class="detail-gallery-thumbnails" aria-label="Additional product images">
+        {% for product_image in product.additional_images.all %}
+        <div class="detail-gallery-thumbnail">{% include "catalog/partials/product_image.html" with image=product_image.image alt=product_image.alt_text|default:product.name %}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="detail-copy"><span class="eyebrow">{{ product.category.name }}</span><h1>{{ product.name }}</h1><p class="detail-summary">{{ product.short_description|default:product.description }}</p><dl class="detail-specs">{% if product.origin %}<div><dt>Country of origin</dt><dd>{{ product.origin }}</dd></div>{% endif %}{% if product.grade %}<div><dt>Grade</dt><dd>{{ product.grade }}</dd></div>{% endif %}{% if product.pack_sizes %}<div><dt>Available pack sizes</dt><dd>{{ product.pack_sizes }}</dd></div>{% endif %}{% if product.moq %}<div><dt>Minimum order quantity</dt><dd>{{ product.moq }}</dd></div>{% endif %}{% if product.availability %}<div><dt>Availability</dt><dd>{{ product.availability }}</dd></div>{% endif %}{% if product.lead_time %}<div><dt>Estimated lead time</dt><dd>{{ product.lead_time }}</dd></div>{% endif %}</dl><div class="detail-actions"><a class="button button-gold" href="{% url 'quote' %}?product={{ product.name|urlencode }}">Request a Quote</a><a class="button button-outline-navy" href="https://wa.me/919876543210?text={{ product.name|urlencode }}%20enquiry" target="_blank" rel="noopener noreferrer">WhatsApp enquiry</a></div></div>
+  </section>
+  {% if product.description %}<section class="product-description"><span class="eyebrow">PRODUCT INFORMATION</span><h2>About {{ product.name }}</h2><p>{{ product.description|linebreaksbr }}</p></section>{% endif %}
+  {% if related_products %}<section class="content-section"><div class="section-heading"><div><span class="eyebrow">EXPLORE THE CATEGORY</span><h2>More from {{ product.category.name }}</h2></div><a class="text-link" href="{% url 'products' %}?category={{ product.category.slug }}">View category <span aria-hidden="true">→</span></a></div><div class="product-grid">{% for related in related_products %}<article class="product-card"><a class="product-image" href="{% url 'product' related.slug %}">{% include "catalog/partials/product_image.html" with image=related.image alt=related.name %}</a><div class="product-info"><span class="product-category">{{ related.category.name }}</span><h3><a href="{% url 'product' related.slug %}">{{ related.name }}</a></h3>{% if related.short_description %}<p class="product-short-description">{{ related.short_description }}</p>{% endif %}<a class="button button-gold button-compact" href="{% url 'quote' %}?product={{ related.name|urlencode }}">Request a Quote</a></div></article>{% endfor %}</div></section>{% endif %}
+</main>
+{% endblock %}
