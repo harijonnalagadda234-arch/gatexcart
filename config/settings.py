@@ -4,20 +4,53 @@ from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
+import pymysql
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(BASE_DIR / ".env")
+pymysql.install_as_MySQLdb()
 
 # Security settings
-SECRET_KEY = os.getenv("SECRET_KEY", "dev-only-change-me")
-DEBUG = os.getenv("DEBUG", "True").lower() == "true"
+IS_VERCEL = (
+    os.getenv("VERCEL", "").lower() in {"1", "true"}
+    or bool(os.getenv("VERCEL_ENV"))
+)
+DEBUG = os.getenv("DEBUG", "False").lower() == "true" and not IS_VERCEL
 
-ALLOWED_HOSTS = [
-    x.strip()
-    for x in os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-    if x.strip()
-]
+SECRET_KEY = os.getenv("SECRET_KEY", "").strip()
+if not SECRET_KEY:
+    if DEBUG:
+        SECRET_KEY = "dev-only-change-me"
+    else:
+        raise ImproperlyConfigured("Set SECRET_KEY in the environment when DEBUG is disabled.")
+
+
+def _csv_setting(name, default=""):
+    return [value.strip() for value in os.getenv(name, default).split(",") if value.strip()]
+
+
+vercel_url = os.getenv("VERCEL_URL", "").strip()
+vercel_host = vercel_url.split("://")[-1].split("/", 1)[0].split(":", 1)[0]
+ALLOWED_HOSTS = _csv_setting(
+    "ALLOWED_HOSTS",
+    "127.0.0.1,localhost" if DEBUG else "",
+)
+if vercel_host and vercel_host not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(vercel_host)
+if not ALLOWED_HOSTS:
+    raise ImproperlyConfigured("Set ALLOWED_HOSTS or deploy with VERCEL_URL.")
+
+CSRF_TRUSTED_ORIGINS = _csv_setting("CSRF_TRUSTED_ORIGINS")
+if vercel_host:
+    vercel_origin = f"https://{vercel_host}"
+    if vercel_origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(vercel_origin)
+
+if IS_VERCEL:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
 
 # Applications
 INSTALLED_APPS = [
@@ -80,9 +113,6 @@ if DB_HOST.casefold() not in {"", "localhost", "127.0.0.1", "::1"}:
         raise ImproperlyConfigured(
             "DB_SSL_CA must point to a readable CA certificate for remote MySQL connections."
         )
-    import pymysql
-
-    pymysql.install_as_MySQLdb()
     DB_OPTIONS.update({
         "ssl_ca": str(ssl_ca_path),
         "ssl_verify_cert": True,
@@ -124,12 +154,12 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Media files
-MEDIA_URL = "media/"
+MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # Website footer settings

@@ -1,11 +1,17 @@
 .env
+.env.*
+!.env.example
 .venv/
+venv/
+.vercel/
 __pycache__/
 *.py[cod]
 media/
 staticfiles/
 database_backups/
 Product_Image_Analysis/
+Cleaned_Products/
+Rejected_Images/
 # Local database backups
 gatexkart_backup.sql
 *.sql
@@ -13,3 +19,13 @@ gatexkart_backup.sql
 # Generated image review folders
 Duplicate_Images/
 Needs_Manual_Review/
+
+# Ignore private keys and certificates; retain the public TiDB CA.
+*.pem
+!certs/isrgrootx1.pem
+*.key
+*.p12
+*.pfx
+*.jks
+id_rsa*
+id_ed25519*

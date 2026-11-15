@@ -21,7 +21,15 @@ Django and MySQL storefront for sourcing Indian food products for international 
 
 The catalogue migration creates the requested product categories and a small set of editable example products only when matching records do not already exist. Product, category, banner, quote and contact content is stored in MySQL. Uploaded product and category images use Django media storage.
 
-Remote MySQL connections use PyMySQL with TLS certificate and host verification. TiDB Cloud Serverless uses the bundled ISRG Root X1 certificate; set `DB_SSL_CA` to another CA bundle path (absolute or relative to the project root) if your provider requires a different CA. Local connections to `localhost`, `127.0.0.1` or `::1` continue using `mysqlclient` without TLS.
+MySQL connections use PyMySQL, avoiding the native client-library build required by `mysqlclient`. Remote MySQL connections use TLS certificate and host verification. TiDB Cloud Serverless uses the bundled ISRG Root X1 certificate; set `DB_SSL_CA` to another CA bundle path (absolute or relative to the project root) if your provider requires a different CA. Local connections to `localhost`, `127.0.0.1` or `::1` do not enable TLS automatically.
+
+## Vercel deployment
+
+The project is configured for Python 3.12. Vercel detects `manage.py` and the configured `WSGI_APPLICATION` automatically; no `vercel.json` or custom build command is needed. With `STATIC_ROOT` set, Vercel runs `collectstatic` and serves static assets through its CDN.
+
+Set the Vercel project Root Directory to the repository root and Production Branch to `main`. Configure `SECRET_KEY`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, and `DB_PORT` for every environment that builds or runs the application. Set `ALLOWED_HOSTS` and `CSRF_TRUSTED_ORIGINS` for custom domains; Vercel's `VERCEL_URL` is added automatically. `DEBUG` is always disabled when Vercel environment variables are present. `DB_SSL_CA` is optional and overrides the bundled CA path.
+
+Vercel's function filesystem is not persistent storage. Product images and admin uploads under `MEDIA_ROOT` need a persistent object-storage backend (for example S3-compatible storage) before relying on uploads or local media files in production. The tracked `Cleaned_Products/` source images are not automatically copied into `MEDIA_ROOT` or served as media files.
 
 ## Admin roles
 
