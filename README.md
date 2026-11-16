@@ -31,6 +31,10 @@ Set the Vercel project Root Directory to the repository root and Production Bran
 
 The committed catalogue images are read-only deployment assets served from the Vercel CDN; database image names remain relative paths under `MEDIA_ROOT`. Vercel's function filesystem is not persistent storage, so new product/admin uploads made in production will not persist across deployments and are not included in the CDN until committed and redeployed.
 
+## Homepage product video showcase
+
+The homepage includes six branded 16:9 product poster cards. No MP4 videos have been generated or added yet, so the cards clearly state that video previews are unavailable and do not expose broken playback controls. Four posters use existing product photos; the ghee and cooking-oil posters are labelled placeholders because approved product photos are not present. Six production prompts and the expected MP4 filenames are documented in [docs/product-video-generation-prompts.md](docs/product-video-generation-prompts.md).
+
 ## Admin roles
 
 - Super Admin: Django superuser with full permissions.

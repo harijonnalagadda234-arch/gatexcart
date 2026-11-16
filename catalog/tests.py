@@ -37,6 +37,46 @@ class CataloguePageTests(TestCase):
             ["rice-grains", "pulses-dals", "spices-masalas", "seeds-nuts", "tamarind", "other-food-products"],
         )
 
+    def test_homepage_renders_six_branded_video_placeholders_with_posters(self):
+        response = self.client.get("/")
+        poster_names = [
+            "pure-ghee",
+            "red-chilli-powder",
+            "rice-grains",
+            "groundnuts",
+            "cooking-oils",
+            "indian-masalas",
+        ]
+        content = response.content.decode()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Discover Our Premium Indian Products")
+        self.assertContains(response, "Quality Indian Products. Trusted Global Supply.")
+        self.assertEqual(content.count("data-product-video-card"), 6)
+        self.assertEqual(content.count("Video preview not yet available"), 6)
+        self.assertEqual(
+            content.count('aria-label="GateXKart. Indian Products. Global Markets."'),
+            6,
+        )
+        for poster_name in poster_names:
+            poster_path = (
+                Path(settings.BASE_DIR)
+                / "static"
+                / "images"
+                / "products"
+                / "video-posters"
+                / f"{poster_name}.jpg"
+            )
+            self.assertTrue(poster_path.is_file())
+            with Image.open(poster_path) as poster:
+                self.assertEqual(poster.format, "JPEG")
+                self.assertEqual(poster.size, (1280, 720))
+            self.assertContains(
+                response,
+                f"/static/images/products/video-posters/{poster_name}.jpg",
+            )
+        self.assertNotContains(response, "/static/videos/products/")
+
     def test_product_search_and_category_filter(self):
         response = self.client.get(
             "/products/",
