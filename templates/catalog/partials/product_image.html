@@ -1,6 +1,6 @@
-{% load static %}
 {% if image %}
-<img src="{{ image.url }}" alt="{{ alt }}" data-fallback="{% static 'images/food-market.jpg' %}" onerror="this.onerror=null;this.src=this.dataset.fallback">
+<img src="{{ image.url }}" alt="{{ alt }}" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+<span class="product-image-placeholder" role="img" aria-label="Product image unavailable: {{ alt }}" hidden>{{ alt }}</span>
 {% else %}
-<img src="{% static 'images/food-market.jpg' %}" alt="{{ alt }}">
+<span class="product-image-placeholder" role="img" aria-label="Product image unavailable: {{ alt }}">{{ alt }}</span>
 {% endif %}

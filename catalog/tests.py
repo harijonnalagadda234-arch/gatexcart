@@ -1,6 +1,9 @@
+import json
 from io import BytesIO
+from pathlib import Path
 from tempfile import TemporaryDirectory
 
+from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, override_settings
 from PIL import Image
@@ -74,12 +77,57 @@ class CataloguePageTests(TestCase):
         self.assertContains(detail, additional.image.url)
         self.assertContains(detail, "Toor Dal additional view")
 
-    def test_missing_image_url_has_browser_fallback(self):
+    def test_blank_product_image_uses_a_product_specific_placeholder(self):
+        response = self.client.get("/products/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            'aria-label="Product image unavailable: Premium Basmati Rice"',
+        )
+        self.assertNotContains(response, "food-market.jpg")
+
+    def test_missing_image_url_shows_product_specific_placeholder(self):
         product = Product.objects.get(slug="toor-dal")
         product.image = "products/missing-image.jpg"
         product.save()
 
         response = self.client.get("/products/")
 
-        self.assertContains(response, "data-fallback=")
-        self.assertContains(response, "this.onerror=null")
+        self.assertContains(response, product.image.url)
+        self.assertContains(
+            response,
+            'aria-label="Product image unavailable: Toor Dal"',
+        )
+        self.assertContains(response, "this.nextElementSibling.hidden=false")
+        self.assertNotContains(response, "food-market.jpg")
+
+    def test_catalogue_media_is_configured_for_staticfiles_collection(self):
+        media_file = (
+            Path(settings.BASE_DIR)
+            / "media"
+            / "products"
+            / "catalogue"
+            / "dry-garlic-whole-img0160.jpg"
+        )
+
+        self.assertTrue(media_file.is_file())
+        self.assertIn(
+            ("media", Path(settings.BASE_DIR) / "media"),
+            settings.STATICFILES_DIRS,
+        )
+
+    def test_vercel_rewrites_media_urls_to_collected_static_assets(self):
+        config_path = Path(settings.BASE_DIR) / "vercel.json"
+        with config_path.open(encoding="utf-8") as config_file:
+            config = json.load(config_file)
+
+        self.assertEqual(
+            config["rewrites"],
+            [
+                {
+                    "source": "/media/:path*",
+                    "destination": "/static/media/:path*",
+                }
+            ],
+        )
